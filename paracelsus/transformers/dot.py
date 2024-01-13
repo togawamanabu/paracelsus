@@ -53,11 +53,11 @@ class Dot:
             if column.unique:
                 attributes.add("Unique")
 
-            column_output += f'        <tr><td align="left">{column.type}</td><td align="left">{column.name}</td><td>{", ".join(sorted(attributes))}</td></tr>\n'
+            column_output += f'        <tr><td align="left">{column.type}</td><td align="left">{column.name}</td><td>{", ".join(sorted(attributes))}</td><td>{column.comment if column.comment else ""}</td></tr>\n'
 
         return f"""<
     <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
-        <tr><td colspan="3" bgcolor="lightblue"><b>{table.name}</b></td></tr>
+        <tr><td colspan="4" bgcolor="lightblue"><b>{table.name} {table.comment if table.comment else ''}</b></td></tr>
 {column_output.rstrip()}
     </table>
 >"""

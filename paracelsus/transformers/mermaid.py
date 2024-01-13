@@ -11,7 +11,12 @@ class Mermaid:
         self.metadata = metaclass
 
     def _table(self, table: Table) -> str:
-        output = f"\t{table.name}"
+        output = f'\t{table.name}["{table.name}'
+
+        if table.comment:
+            output += f" ({table.comment})"
+        output +='"]'
+
         output += " {\n"
         columns = sorted(table.columns, key=utils.column_sort_key)
         for column in columns:
@@ -40,6 +45,9 @@ class Mermaid:
 
         if column.index:
             options.append("indexed")
+        
+        if column.comment:
+            options.append(column.comment)
 
         if len(options) > 0:
             column_str += f' "{",".join(options)}"'
